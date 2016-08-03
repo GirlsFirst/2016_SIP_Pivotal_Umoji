@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+
+
+
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="description" content="Sidebar Transitions: Transition effects for off-canvas views" />
+    <meta name="keywords" content="transition, off-canvas, navigation, effect, 3d, css3, smooth" />
+    <meta name="author" content="Codrops" />
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="css/component.css" />
+    <script src="js/modernizr.custom.js"></script>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/cat.css" />
+    <title>Memes</title>
+</head>
+
+<body>
+            <a href="http://thecatapi.com"><img id="catpic" src="http://thecatapi.com/api/images/get?format=src&type=gif" height = "350" width= "230"></a>
+     <div id="st-container" class="st-container">
+      <nav class="st-menu st-effect-1" id="menu-1">
+        <h2 class="icon icon-lab">Navigation</h2>
+        <ul>
+         <li><a class="icon icon-photo" href="index.html">Home</a></li>
+          <li><a class="icon icon-study" href="RochelleIndex.html">Crop</a></li>
+          <li><a class="icon icon-location" href="RochelleIndex.html">Filter</a></li>
+          <li><a class="icon icon-data" href="memepage.html">Mememoji</a></li>
+          <li><a class="icon icon-shop" href="cat.html">Catmoji</a></li>
+          <li><a class="icon icon-clock" href="photofilter5.html">Jokemoji</a></li>
+
+        </ul>
+      </nav>
+        <div class="st-content"><!-- this is the wrapper for the content -->
+          <div class="st-content-inner"><!-- extra div for emulating position:fixed of the menu -->
+            
+            <div class="main clearfix">
+              <div id="st-trigger-effects" class="column">
+                <button data-effect="st-effect-1">Navigation</button>
+              </div>
+            </div><!-- /main -->
+          </div><!-- /st-content-inner -->
+        </div><!-- /st-content -->
+      </div><!-- /st-pusher -->
+    <script src="js/classie.js"></script>
+    <script src="js/sidebarEffects.js"></script>
+
+    <!-- <img id="pic" src= "http://2.bp.blogspot.com/-8jsaEo4_w-E/U175_64miRI/AAAAAAAAC2Y/EMv6CLJuTA4/s1600/THREESTRIKES.jpg" width="220" height="220"> -->
+
+    <!-- <a href="http://thecatapi.com"><img src="http://thecatapi.com/api/images/get?format=src&type=gif"></a> -->
+            <button id="catbutton" onclick="meme()" >Regenerate</button>
+
+
+    <!--<div class="app">
+        <h1>PhoneGap</h1>
+        <div id="deviceready" class="blink">
+            <p class="event listening">Connecting to Device</p>
+            <p class="event received">Device is Ready</p>
+        </div>
+    </div>-->
+    <!--<script type="text/javascript" src="cordova.js"></script>-->
+    <script type="text/javascript" src="js/cat.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+</body>
+
+</html>

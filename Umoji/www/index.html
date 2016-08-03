@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<!--
+    Copyright (c) 2012-2016 Adobe Systems Incorporated. All rights reserved.
+
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="description" content="Sidebar Transitions: Transition effects for off-canvas views" />
+    <meta name="keywords" content="transition, off-canvas, navigation, effect, 3d, css3, smooth" />
+    <meta name="author" content="Codrops" />
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="css/component.css" />
+    <link  href="http://fonts.googleapis.com/css?family=Cabin:400,500,600,bold" rel="stylesheet" type="text/css" >
+    <link  href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:regular,bold" rel="stylesheet" type="text/css" >
+    <script src="js/modernizr.custom.js"></script>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <title>Hello World</title>
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-app.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+    <style media="screen">
+        body{
+            display:flex;
+            width:100%;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        #uploader{
+            width: 50%;
+            margin-bottom: : 10px;
+        }
+    </style>
+    <style>
+        body {width: 100%;}
+        canvas {display: none;}
+    </style>
+</head>
+
+<body>
+  <div id="st-container" class="st-container">
+      <nav class="st-menu st-effect-1" id="menu-1">
+        <h2 class="icon icon-lab">Navigation</h2>
+        <ul>
+          <li><a class="icon icon-photo" href="index.html">Home</a></li>
+          <li><a class="icon icon-study" href="RochelleIndex.html">Crop</a></li>
+          <li><a class="icon icon-location" href="RochelleIndex.html">Filter</a></li>
+          <li><a class="icon icon-data" href="memepage.html">Mememoji</a></li>
+          <li><a class="icon icon-shop" href="cat.html">Catmoji</a></li>
+          <li><a class="icon icon-clock" href="PhotoFilter5.html">Jokemoji</a></li>
+
+        </ul>
+      </nav>
+        <div class="st-content"><!-- this is the wrapper for the content -->
+          <div class="st-content-inner"><!-- extra div for emulating position:fixed of the menu -->
+            
+            <div class="main clearfix">
+              <div id="st-trigger-effects" class="column">
+                <button data-effect="st-effect-1">Navigation</button>
+              </div>
+            </div><!-- /main -->
+          </div><!-- /st-content-inner -->
+        </div><!-- /st-content -->
+      </div><!-- /st-pusher -->
+    <script src="js/classie.js"></script>
+    <script src="js/sidebarEffects.js"></script>
+    <div id="pagegradient"></div>
+
+    <button onclick="location.href = 'RochelleIndex.html';" id="crop" class="button disabled">Tap To Continue</button>
+   <!-- <progress value="0" max="100" id="uploader">0%</progress>--> 
+    <input type="file" value="upload" accept='image/*' id="fileButton" />
+    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"> </script>
+ <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAFFDeoEJizT6dRDGCUTLiJAijScDu5NOg",
+    authDomain: "umoji-40829.firebaseapp.com",
+    databaseURL: "https://umoji-40829.firebaseio.com",
+    storageBucket: "gs://umoji-40829.appspot.com",
+  };
+
+  firebase.initializeApp(config);
+
+  var uploader =document.getElementById('uploader');
+  var fileButton = document.getElementById('fileButton');
+
+  fileButton.addEventListener('change', function(e){
+    var file = e.target.files[0];
+    document.getElementById("crop").className = "button";
+
+    var storageRef = firebase.storage().ref('img/userpic');
+    var task = storageRef.put(file);
+
+    task.on('state_changed',
+
+        function progress(snapshot) {
+            var percentage = (snapshot.bytesTransferred/ snapshot.totalBytes)*100;
+            uploader.value = percentage;
+            document.getElementById("crop").className = "button";
+        }, function error(err){
+
+        }, function complete(){
+
+        });
+  });
+
+/**var storage = firebase.storage();
+var userRef = storageRef.child('img/meme.jpg');
+
+//var userRef = storage.ref('img/meme.jpg');
+
+userRef.getDownloadURL().then(function(url) {
+  // Insert url into an <img> tag to "download"
+  var img=getElementById("my_pic");
+  img.src=url;
+}).catch(function(error) {
+  switch (error.code) {
+    case 'storage/object_not_found':
+      // File doesn't exist
+      break;
+      }
+});
+**/
+
+  /**var storage = firebase.storage();
+  var httpsReference= storage.refFromURL("https://firebasestorage.googleapis.com/v0/b/umoji-40829.appspot.com/o/img%2Fimage.jpeg?alt=media&token=a5e1586d-ab8e-438b-9f53-0a85e02c6267");
+  var userImage =storageRef.child('img/'+file.name);
+    <img src=userImage.getDownloadURL().then(function(url)) alt="user image" /> **/
+
+  /**var storage = firebase.storage();
+  var storageRef = storage.ref();
+  var file= 'meme1.jpg';
+  var uploadTask = storageRef.child(file.name).put(file);
+  
+  uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+  function(snapshot) {
+    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    console.log('Upload is ' + progress + '% done');
+    switch (snapshot.state) {
+      case firebase.storage.TaskState.PAUSED: // or 'paused'
+        console.log('Upload is paused');
+        break;
+      case firebase.storage.TaskState.RUNNING: // or 'running'
+        console.log('Upload is running');
+        break;
+    }
+  }, function(error) {
+  switch (error.code) {
+    case 'storage/unauthorized':
+      // User doesn't have permission to access the object
+      break;
+
+    case 'storage/canceled':
+      // User canceled the upload
+      break;
+
+    ...
+
+    case 'storage/unknown':
+      // Unknown error occurred, inspect error.serverResponse
+      break;
+  }
+}, function() {
+  // Upload completed successfully, now we can get the download URL
+  var downloadURL = uploadTask.snapshot.downloadURL;
+});  **/
+
+</script>
+
+    <!--<input id="camerabutton" type='file' name='pic1' accept='image/*' onchange="onFileSelected(event)">
+    <p><a href="crop.html"><img id= "logo" src="logo.png" title="logo"/></a>
+    </p>-->
+
+    <!--<img id="myimage" height="200">
+    <button id="crop" href="crop.html" > Tap To Continue </button>
+    <output id="list"></output>-->
+    <canvas id="canvas" width="640" height="480"></canvas>
+
+    <div class="app">
+        <h1>Umoji</h1>
+        <div id="deviceready" class="blink">
+            <p class="event listening">Connected</p>
+            <p class="event received">Device is Ready</p>
+
+        </div>
+    </div>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript"> 
+        app.initialize();
+    </script>
+</body>
+
+</html>
